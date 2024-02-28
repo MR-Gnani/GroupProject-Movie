@@ -1,4 +1,4 @@
-let underLine = document.getElementById("under-line");
+
 let categoryList = document.querySelectorAll("category_list div");
 
 for(let i=1; i<tabs.length; i++) {
