@@ -1,0 +1,19 @@
+#searcher {
+  display: flex;
+  justify-content: center;
+  margin-top: 5em;
+  font-family: "Roboto", sans-serif;
+}
+.row {
+  margin-top: 5em;
+}
+
+#searched-list {
+  margin-left: 50px;
+  font-family: "Roboto", sans-serif;
+}
+
+.img-size {
+  max-width: 100%;
+  max-height: 200px;
+}
