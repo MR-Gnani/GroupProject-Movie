@@ -1,6 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+}
+
 body {
   background-color: #000;
   color: #fff;
+}
+
+a {
+  text-decoration: none;
 }
 
 ul,
@@ -16,28 +29,12 @@ img {
   border: 0;
 }
 
-.container {
-  width: 100%;
-}
-
-/* header */
-
-.in_header {
-  height: 65px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.searchWrap {
-  display: flex;
-}
-
-/* section */
+/* 헤더를 제외한 나머지 컨테이너 */
 .detailWrap {
   height: 100%;
 }
 
+/* 영화 이미지 */
 .moiveImg {
   position: relative;
   width: 100%;
@@ -46,6 +43,7 @@ img {
   overflow: hidden;
 }
 
+/* 영화 이미지 위 그라데이션 */
 .background {
   position: absolute;
   bottom: 0;
@@ -54,6 +52,7 @@ img {
   background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 120%);
 }
 
+/* 영화 타이틀과 찜 버튼 wrap */
 .imgBottom {
   width: 100%;
   display: flex;
@@ -62,12 +61,14 @@ img {
   bottom: 0;
 }
 
+/* 찜버튼 wrap */
 .deepWrap {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* 줄거리 및 리뷰 wrap */
 .reviewWrap {
   display: flex;
 }

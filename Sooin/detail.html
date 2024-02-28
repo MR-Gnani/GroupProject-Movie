@@ -17,54 +17,62 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="../css/detail.css" />
+    <link rel="stylesheet" href="css/detail.css" />
   </head>
   <body>
-    <section class="container">
-      <header>
-        <div class="in_header sticky-top">
-          <div>
-            <div class="backBtn">
-              <a href="#"><i class="fa-solid fa-chevron-left"></i></a>
-            </div>
-          </div>
-          <div class="searchWrap">
-            <div class="share"><i class="fa-solid fa-share"></i></div>
-            <div class="search">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-          </div>
+    <header class="header">
+      <div class="container">
+        <a href="/" class="logo">
+          <span> NOONING </span>
+        </a>
+        <nav class="navi">
+          <ul class="navi-list">
+            <li class="navi-item">
+              <a href="/">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li class="navi-item">
+              <a href="/user/${principal.user.id}">
+                <i class="far fa-user"></i>
+              </a>
+            </li>
+            <li class="navi-item">
+              <a onclick="popup('.modal-info')">
+                <i class="fas fa-cog"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <section id="detailWrap"></section>
+    </div>
+    <footer>
+      <div class="container">
+        <ul>
+          <li><a href="#a">소개</a></li>
+          <li><a href="#a">블로그</a></li>
+          <li><a href="#a">채용 정보</a></li>
+          <li><a href="#a">도움말</a></li>
+          <li><a href="#a">API</a></li>
+          <li><a href="#a">개인정보처리방침</a></li>
+          <li><a href="#a">약관</a></li>
+          <li><a href="#a">인기 계정</a></li>
+          <li><a href="#a">해시태그</a></li>
+          <li><a href="#a">위치</a></li>
+        </ul>
+        <div class="copy">
+          <p>© 2024 Nooning from Coding Noona's JavaScript Study-19teams</p>
         </div>
-      </header>
-      <section id="detailWrap">
-        <div class="moiveImg">
-          <img
-            src="https://lumiere-a.akamaihd.net/v1/images/sa_pixar_virtualbg_coco_16x9_9ccd7110.jpeg?region=0,0,1920,1080&width=960"
-            alt=""
-          />
-          <div class="background"></div>
-          <div class="imgBottom">
-            <div class="titleWrap">
-              <h1>영화제목</h1>
-              <p>영어제목,년도</p>
-              <p>평점</p>
-            </div>
-            <div class="deepWrap">
-              <div class="deepBtn"><i class="fa-regular fa-heart"></i></div>
-              <p>찜하기</p>
-            </div>
-          </div>
-        </div>
-        <div class="reviewWrap">
-          <div>작품정보</div>
-          <div>리뷰</div>
-        </div>
-      </section>
-    </section>
+      </div>
+    </footer>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="detail.js"></script>
   </body>
 </html>
