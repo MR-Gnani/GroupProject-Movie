@@ -1,16 +1,18 @@
 body {
   margin: 0;
   background-color: #060d17;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .container {
   color: white;
-  border: solid red;
+
+  overflow: hidden;
 }
 
 .top-menu {
   width: 100%;
-  border: solid blue;
+
   display: flex;
   justify-content: space-between;
 }
@@ -26,37 +28,77 @@ body {
   display: flex;
 }
 
-.today-movie-view {
+.popular-movie-view {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+
+  height: 270px;
 }
 
-.today-movie-view div {
-  background-color: #d9d9d9;
+.popular-movie-view div {
+  /* background-color: #d9d9d9; */
   border-radius: 10px;
-  height: 300px;
-  width: 200px;
-  margin-right: 5px;
-  border: solid yellow;
+  height: 100%;
+  width: 24.5%;
+}
+
+.bbb {
+  filter: blur();
+  transition: filter 0.5s ease;
+}
+.bbb:hover {
+  filter: blur(5px);
+}
+
+.text-overlay-title {
+  position: absolute;
+}
+
+.text-overlay-rate {
+  position: absolute;
 }
 
 .category-movie {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+
+  height: 150px;
 }
 
 .category-movie div {
-  background-color: #d9d9d9;
-  border-radius: 10px;
-  height: 300px;
-  width: 200px;
-  margin-right: 5px;
-  border: solid yellow;
+  /* background-color: #d9d9d9; */
+
+  height: 100%;
+  width: 15.5%;
 }
 
 .bbb {
   display: flex;
-  border-radius: 10px;
+
   height: 100%;
   width: 100%;
+}
+
+.today-movie {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.category-title {
+  margin-top: 6%;
+  margin-bottom: 2%;
+}
+
+.today-top-10-movie {
+  display: flex;
+  justify-content: center;
+  height: 170px;
+}
+
+.today-top-10-movie div {
+  /* background-color: #d9d9d9; */
+
+  height: 100%;
+  width: 23%;
+  margin-right: 5px;
 }
