@@ -25,6 +25,19 @@ const getMovieData = async () => {
 
 getMovieData();
 
+const getMoviesByKeyword = async () => {
+  const keyword = document.getElementById("search-input").value;
+  console.log("keyword", keyword);
+  const url = new URL(
+    `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${keyword}&api_key=e8d18ad5d8b63b3fb646665cf878dd49`
+  );
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("keyword data", data);
+  searchedMoviesList = data.results;
+  render();
+};
+
 const render = () => {
   let imgUrl = "https://image.tmdb.org/t/p/w200";
   const movieHTML = searchedMoviesList.map(
