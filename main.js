@@ -86,13 +86,13 @@ const render = (element, data, size) => {
       console.log("rate", rateScore);
       movieDataList += ` <div class='top-10-side bbbb'>
       <div class="top-10-side-img">${i + 1}</div>
-      <img class="bbb"  src="${imgUrl}${imgAddress}" alt="">
+      <img class="bbb bbbb" src="${imgUrl}${imgAddress}" alt="">
       <section class="text-contacts">
-      <section class="text-title">혹성탈출</section>
-      <section class='text-rate'>7.88</section>
-      <section class="text-category">로맨스 공포 스릴러</section>
-    </section>
-      </div>`;
+          <section class="text-title">혹성탈출</section>
+          <section class='text-rate'>7.88</section>
+          <section class="text-category">로맨스 공포 스릴러</section>
+      </section>
+  </div>`;
     }
   } else if (element == popularMovie) {
     //이게 오늘의영화

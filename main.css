@@ -70,7 +70,11 @@ body {
 
 .bbb {
   display: flex;
-
+  height: 100%;
+  width: 100%;
+}
+.bbbb {
+  display: flex;
   height: 100%;
   width: 100%;
 }
@@ -146,12 +150,31 @@ body {
   padding-left: 1em;
   flex-direction: column;
   justify-content: end;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.top-10-side {
+  position: relative;
+}
+
+.top-10-side::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px); /* 호버링 시 블러 처리 */
+  opacity: 0; /* 호버링 시 투명도 조절 */
+  transition: opacity 0.3s ease; /* 부드러운 트랜지션 */
+}
+
+.top-10-side:hover::before {
+  opacity: 1; /* 호버링 시 투명도 조절 */
 }
 
 .top-10-side:hover .text-contacts {
-  opacity: 1; /* 호버링 시에만 나타나도록 설정 */
+  display: flex;
+  opacity: 1;
+  backdrop-filter: none; /* 호버링 시 블러 해제 */
 }
 
 .text-title {
