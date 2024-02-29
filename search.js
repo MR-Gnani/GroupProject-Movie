@@ -1,4 +1,5 @@
 let searchedMoviesList = [];
+const API_KEY = "e8d18ad5d8b63b3fb646665cf878dd49";
 const startPage = 1;
 const endPage = 5;
 
@@ -29,7 +30,7 @@ const getMoviesByKeyword = async () => {
   const keyword = document.getElementById("search-input").value;
   console.log("keyword", keyword);
   const url = new URL(
-    `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${keyword}&api_key=e8d18ad5d8b63b3fb646665cf878dd49`
+    `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${keyword}&api_key=${API_KEY}`
   );
   const response = await fetch(url);
   const data = await response.json();
@@ -42,16 +43,17 @@ const render = () => {
   let imgUrl = "https://image.tmdb.org/t/p/w200";
   const movieHTML = searchedMoviesList.map(
     (movies) => `<div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-1">
     <img
       class="img-size"
       src="${imgUrl}${movies.poster_path}" alt=""
     />
   </div>
-<div class="col-lg-8">
+<div class="col-lg-10">
   <h2>${movies.title}</h2>
   <p>${movies.overview}</p>
-  <div>${movies.release_date}</div>
+</div>
+<div class="col-lg-1">
 </div>
 </div>`
   );
