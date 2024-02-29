@@ -76,16 +76,44 @@ fetchData(actionURL).then((data) => {
 
 const render = (element, data, size) => {
   let movieDataList = "";
-  for (let i = 0; i < size; i++) {
-    const imgAddress = data.results[i].poster_path;
-    const rateScore = data.results[i].vote_average.toFixed(2);
-    const titleName = data.results[i].title;
+  if (element == todayMovie) {
+    //top10 무비임
+    for (let i = 0; i < size; i++) {
+      const imgAddress = data.results[i].poster_path;
+      const rateScore = data.results[i].vote_average.toFixed(2);
+      const titleName = data.results[i].title;
 
-    console.log("rate", rateScore);
-    movieDataList += `<img class="bbb" src="${imgUrl}${imgAddress}" alt="">`;
+      console.log("rate", rateScore);
+      movieDataList += ` <div class='top-10-side bbbb'>
+      <div class="top-10-side-img">${i + 1}</div>
+      <img class="bbb"  src="${imgUrl}${imgAddress}" alt="">
+      <section class="text-contacts">
+      <section class="text-title">혹성탈출</section>
+      <section class='text-rate'>7.88</section>
+      <section class="text-category">로맨스 공포 스릴러</section>
+    </section>
+      </div>`;
+    }
+  } else if (element == popularMovie) {
+    //이게 오늘의영화
+    for (let i = 0; i < size; i++) {
+      const imgAddress = data.results[i].poster_path;
+      const rateScore = data.results[i].vote_average.toFixed(2);
+      const titleName = data.results[i].title;
+
+      console.log("rate", rateScore);
+      movieDataList += `<img class="bbb" src="${imgUrl}${imgAddress}" alt="">`;
+    }
+  } else {
+    for (let i = 0; i < size; i++) {
+      const imgAddress = data.results[i].poster_path;
+      const rateScore = data.results[i].vote_average.toFixed(2);
+      const titleName = data.results[i].title;
+
+      console.log("rate", rateScore);
+      movieDataList += `<img class="bbb" src="${imgUrl}${imgAddress}" alt="">`;
+    }
   }
   element.innerHTML = movieDataList;
   console.log(movieDataList);
 };
-// <div class="text-overlay-title">${titleName}</div>
-// <div class="text-overlay-rate">${rateScore}</div>

@@ -1,0 +1,168 @@
+body {
+  margin: 0;
+  background-color: #060d17;
+  background-image: url(./images/background.jpeg);
+  background-size: contain;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.container {
+  color: white;
+  background-color: #060d17;
+  opacity: 0.9;
+
+  overflow: hidden;
+}
+
+.top-menu {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-menu-right {
+  display: flex;
+}
+.top-menu-right div {
+  margin-right: 3px;
+}
+
+.top-menu-left {
+  display: flex;
+}
+
+.popular-movie-view {
+  display: flex;
+  justify-content: space-between;
+
+  height: 270px;
+}
+
+.popular-movie-view div {
+  /* background-color: #d9d9d9; */
+  border-radius: 10px;
+  height: 100%;
+  width: 24.5%;
+}
+
+.text-overlay-title {
+  position: absolute;
+}
+
+.text-overlay-rate {
+  position: absolute;
+}
+
+.category-movie {
+  display: flex;
+  justify-content: space-between;
+
+  height: 150px;
+}
+
+.category-movie div {
+  /* background-color: #d9d9d9; */
+
+  height: 100%;
+  width: 15.5%;
+}
+
+.bbb {
+  display: flex;
+
+  height: 100%;
+  width: 100%;
+}
+
+.today-movie {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.top-10-side-img {
+  background-color: black;
+  font-size: 13vw;
+  font-weight: bold;
+  color: black;
+  -webkit-text-stroke: 2px white;
+  height: 100%;
+  width: 100%;
+
+  padding-left: 2%;
+  padding-top: 35px;
+}
+
+@media screen and (min-width: 800px) {
+  .top-10-side-img {
+    font-size: 105px; /* 뷰포트 너비가 800px 이하인 경우 글자 크기를 14px로 설정 */
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .bbb {
+    width: 102px;
+  }
+}
+
+.top-10-side {
+  background-color: black;
+  display: flex;
+  /* align-items: end; */
+  height: 100%;
+  overflow: hidden;
+}
+
+.category-title {
+  margin-top: 6%;
+  margin-bottom: 2%;
+}
+
+.today-top-10-movie {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+
+  height: 170px;
+}
+
+.today-top-10-movie div {
+  /* background-color: #d9d9d9; */
+
+  height: 100%;
+  width: 23%;
+}
+.img-box {
+  display: flex;
+  position: relative;
+}
+.text-contacts {
+  display: flex;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  flex-direction: column;
+  justify-content: end;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.top-10-side:hover .text-contacts {
+  opacity: 1; /* 호버링 시에만 나타나도록 설정 */
+}
+
+.text-title {
+  margin-bottom: 6%;
+  font-size: 1em;
+}
+
+.text-rate {
+  margin-bottom: 0.6em;
+}
+
+.text-category {
+  font-size: 0.9em;
+}
