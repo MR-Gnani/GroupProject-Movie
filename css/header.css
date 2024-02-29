@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+}
+
+.header {
+  height: 80px;
+  background-color: #060d17ec;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 700;
+  font-style: oblique;
+}
+
+.logo span{
+	color: #e92047;
+}
+
+.navi > .navi-list {
+  display: flex;
+}
+.navi > .navi-list .navi-item {
+  flex: 1;
+  text-align: center;
+  margin: 0 15px;
+  display: flex;
+}
+.navi > .navi-list .navi-item a i {
+  font-size: 32px;
+  color: white;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.modal-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-info .modal {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-info .modal button {
+  border: 0;
+  background-color: transparent;
+  height: 48px;
+  cursor: pointer;
+}
+
+.modal-info .modal button:not(:last-child) {
+  border-bottom: 1px solid #dbdbdb;
+}
+
+
+@media screen and (max-width: 935px) {
+  .header .container {
+    width: 100%;
+  }
+}
