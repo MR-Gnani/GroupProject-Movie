@@ -35,7 +35,7 @@ const actionMovieDataSize = 6; // 추가: 액션 카테고리 데이터 크기
 const top10URL =
   "https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=1";
 const popularURL =
-  "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+  "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1";
 const horrorURL =
   "https://api.themoviedb.org/3/discover/movie?with_genres=27&language=ko-KR&page=1";
 const comedyURL =
@@ -43,34 +43,87 @@ const comedyURL =
 const actionURL =
   "https://api.themoviedb.org/3/discover/movie?with_genres=28&language=ko-KR&page=1"; // 추가: 액션 카테고리 URL
 
+const fetchPopularMovies = async () => {
+  let movieLateList100 = [];
+  let movieLateList100Filter = [];
+
+  for (let i = 1; i < 6; i++) {
+    const data = await fetchData(
+      `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=${i}`
+    );
+    movieLateList100.push(...data.results);
+  }
+
+  // 필터링을 수행하여 바로 콘솔에 출력합니다.
+  movieLateList100Filter = movieLateList100.filter(
+    (movie) => movie.vote_average >= 6.5
+  );
+  console.log("무비필터", movieLateList100Filter);
+  const popularMovieRender = (data) => {
+    let movieDataList = "";
+    const randomNumbers = [];
+    while (randomNumbers.length < 4) {
+      const randomNumber = Math.floor(Math.random() * 100);
+      if (
+        !randomNumbers.includes(randomNumber) &&
+        randomNumber <= movieLateList100Filter.length
+      ) {
+        randomNumbers.push(randomNumber);
+      }
+    }
+    randomNumbers.sort((a, b) => a - b);
+    console.log("숫자모음", randomNumbers);
+
+    for (let i = 0; i < 4; i++) {
+      let targetNum = randomNumbers[i];
+      console.log(targetNum);
+      console.log(data[targetNum]);
+      const imgAddress = data[targetNum].poster_path;
+      const rateScore = data[targetNum].vote_average.toFixed(2);
+      const titleName = data[targetNum].title;
+
+      movieDataList += ` <div class="popular-movie">
+      <img class="bbb" src="${imgUrl}${imgAddress} alt="">
+      <section class="text-contacts">
+      <section class="text-title">${titleName}</section>
+      <section class='text-rate'>${rateScore}</section>
+       
+      </section>
+    </div>`;
+    }
+
+    popularMovie.innerHTML = movieDataList;
+    console.log(popularMovie);
+  };
+  popularMovieRender(movieLateList100Filter);
+};
+
+fetchPopularMovies();
+
+// fetchData(popularURL).then((data) => {
+//   popularMovieData = data;
+//   console.log(data);
+//   render(popularMovie, popularMovieData, 4);
+// });
 fetchData(top10URL).then((data) => {
   todayMovieData = data;
-  console.log(todayMovieData);
-  render(todayMovie, todayMovieData, 5);
-});
 
-fetchData(popularURL).then((data) => {
-  popularMovieData = data;
-  console.log(popularMovieData);
-  render(popularMovie, popularMovieData, 4);
+  render(todayMovie, todayMovieData, 5);
 });
 
 fetchData(horrorURL).then((data) => {
   horrorMovieData = data;
-  console.log(horrorMovieData);
   render(horrorMovie, horrorMovieData, 6);
 });
 
 fetchData(comedyURL).then((data) => {
   comedyMovieData = data;
-  console.log(comedyMovieData);
   render(comedyMovie, comedyMovieData, 6);
 });
 
 fetchData(actionURL).then((data) => {
   // 추가: 액션 카테고리 데이터 가져오기
   actionMovieData = data;
-  console.log(actionMovieData);
   render(actionMovie, actionMovieData, 6); // 추가: 액션 카테고리 데이터 출력
 });
 
@@ -83,14 +136,13 @@ const render = (element, data, size) => {
       const rateScore = data.results[i].vote_average.toFixed(2);
       const titleName = data.results[i].title;
 
-      console.log("rate", rateScore);
       movieDataList += ` <div class='top-10-side bbbb'>
       <div class="top-10-side-img">${i + 1}</div>
       <img class="bbb bbbb" src="${imgUrl}${imgAddress}" alt="">
       <section class="text-contacts">
-          <section class="text-title">혹성탈출</section>
-          <section class='text-rate'>7.88</section>
-          <section class="text-category">로맨스 공포 스릴러</section>
+          <section class="text-title">${titleName}</section>
+          <section class='text-rate'>${rateScore}</section>
+          
       </section>
   </div>`;
     }
@@ -101,8 +153,14 @@ const render = (element, data, size) => {
       const rateScore = data.results[i].vote_average.toFixed(2);
       const titleName = data.results[i].title;
 
-      console.log("rate", rateScore);
-      movieDataList += `<img class="bbb" src="${imgUrl}${imgAddress}" alt="">`;
+      movieDataList += ` <div class="popular-movie">
+      <img class="bbb" src="${imgUrl}${imgAddress} alt="">
+      <section class="text-contacts">
+      <section class="text-title">${titleName}</section>
+      <section class='text-rate'>${rateScore}</section>
+       
+      </section>
+    </div>`;
     }
   } else {
     for (let i = 0; i < size; i++) {
@@ -110,10 +168,14 @@ const render = (element, data, size) => {
       const rateScore = data.results[i].vote_average.toFixed(2);
       const titleName = data.results[i].title;
 
-      console.log("rate", rateScore);
-      movieDataList += `<img class="bbb" src="${imgUrl}${imgAddress}" alt="">`;
+      movieDataList += ` <div class="popular-movie">
+      <img class="bbb" src="${imgUrl}${imgAddress} alt="">
+      <section class="text-contacts">
+      <section class="text-title">${titleName}</section>
+      <section class='text-rate'>${rateScore}</section>
+      </section>
+    </div>`;
     }
   }
   element.innerHTML = movieDataList;
-  console.log(movieDataList);
 };
