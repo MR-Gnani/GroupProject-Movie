@@ -12,6 +12,12 @@
 #searched-list {
   margin-left: 50px;
   font-family: "Noto Sans KR", sans-serif;
+  color: white;
+}
+#sm-title {
+  margin-left: 50px;
+  font-family: "Noto Sans KR", sans-serif;
+  color: white;
 }
 
 .img-size {

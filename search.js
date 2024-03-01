@@ -1,6 +1,10 @@
 let searchedMoviesList = [];
 const API_KEY = "e8d18ad5d8b63b3fb646665cf878dd49";
 let userInput = document.querySelector(".task-input");
+// let total_results = 0;
+// let page = 1;
+// const pageSize = 10;
+// const groupSize = 5;
 
 const getMovieData = async () => {
   const options = {
@@ -36,14 +40,19 @@ const getMoviesByKeyword = async () => {
   const url = new URL(
     `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${keyword}&api_key=${API_KEY}`
   );
+  // url.searchParams.set("page", page);
+  // url.searchParams.set("pageSize", pageSize);
   const response = await fetch(url);
+
   const data = await response.json();
   console.log("keyword data", data);
   searchedMoviesList = data.results;
-  render();
+  total_results = data.total_results;
+  render2();
+  // paginationRender();
 };
 
-const render = () => {
+const render2 = () => {
   let imgUrl = "https://image.tmdb.org/t/p/w200";
   const movieHTML = searchedMoviesList.map(
     (movies) => `<div class="row">
@@ -53,14 +62,82 @@ const render = () => {
       src="${imgUrl}${movies.poster_path}" alt=""
     />
   </div>
-<div class="col-lg-10">
-  <h4>${movies.title}</h4>
+  <div class="col-lg-10">
+  <h5>${movies.title}</h5>
   <p>${movies.overview}</p>
 </div>
 <div class="col-lg-1">
 </div>
 </div>`
   );
+  document.getElementById("searched-list").innerHTML = movieHTML.join("");
+};
+
+const render = () => {
+  let imgUrl = "https://image.tmdb.org/t/p/w200";
+  const movieHTML = searchedMoviesList.map(
+    (movies, index) => `<div class="row">
+    <div class="col-lg-2">
+      <img
+        class="img-size"
+        src="${imgUrl}${searchedMoviesList[index * 4]?.poster_path}" alt=""
+      />
+    </div>
+    <div class="col-lg-2">
+    <img
+      class="img-size"
+      src="${imgUrl}${searchedMoviesList[index * 4 + 1]?.poster_path}" alt=""
+    />
+  </div>
+  <div class="col-lg-2">
+      <img
+        class="img-size"
+        src="${imgUrl}${searchedMoviesList[index * 4 + 2]?.poster_path}" alt=""
+      />
+    </div>
+    <div class="col-lg-2">
+      <img
+        class="img-size"
+        src="${imgUrl}${searchedMoviesList[index * 4 + 3]?.poster_path}" alt=""
+      />
+    </div>
+    <div class="col-lg-2">
+    <img
+      class="img-size"
+      src="${imgUrl}${searchedMoviesList[index * 4 + 4]?.poster_path}" alt=""
+    />
+  </div>
+  <div class="col-lg-2">
+  <img
+    class="img-size"
+    src="${imgUrl}${searchedMoviesList[index * 4 + 5]?.poster_path}" alt=""
+  />
+  </div>
+  </div>`
+  );
 
   document.getElementById("searched-list").innerHTML = movieHTML.join("");
 };
+
+// const paginationRender = () => {
+//   const totalPages = Math.ceil(total_results / pageSize);
+//   const pageGroup = Math.ceil(page / groupSize);
+//   const lastPage = pageGroup * groupSize;
+//   if (lastPage > totalPages) {
+//     lastPage = totalPages;
+//   }
+//   const firstPage =
+//     lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+//   let paginationHTML = "";
+//   for (let i = firstPage; i <= lastPage; i++) {
+//     paginationHTML += `<li class="page-item" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
+//   }
+//   document.querySelector(".pagination").innerHTML = paginationHTML;
+// };
+
+// const moveToPage = (pageNum) => {
+//   console.log("moveToPage", pageNum);
+
+//   page = pageNum;
+//   getMoviesByKeyword();
+// };
