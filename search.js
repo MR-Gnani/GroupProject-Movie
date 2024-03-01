@@ -1,7 +1,6 @@
 let searchedMoviesList = [];
 const API_KEY = "e8d18ad5d8b63b3fb646665cf878dd49";
-const startPage = 1;
-const endPage = 5;
+let userInput = document.querySelector(".task-input");
 
 const getMovieData = async () => {
   const options = {
@@ -12,16 +11,21 @@ const getMovieData = async () => {
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlOGQxOGFkNWQ4YjYzYjNmYjY0NjY2NWNmODc4ZGQ0OSIsInN1YiI6IjY1NGIzYjM2Mjg2NmZhMDBmZTAxNzNkZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.D3qxPqwPR55bduPDEpwBBz27tng-T9UsVkFnrF6v6Ag",
     },
   };
-  for (let i = startPage; i <= endPage; i++) {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?language=ko-KR&page=${i}`,
-      options
-    );
-    const data = await response.json();
-    console.log("rrrrr", data.results);
-    searchedMoviesList = searchedMoviesList.concat(data.results);
-    render();
-  }
+
+  userInput.addEventListener("keydown", function (event) {
+    if (event.keyCode === 13) {
+      getMoviesByKeyword(event);
+    }
+  });
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1`,
+    options
+  );
+  const data = await response.json();
+  console.log("rrrrr", data.results);
+  searchedMoviesList = data.results;
+  render();
 };
 
 getMovieData();
@@ -50,7 +54,7 @@ const render = () => {
     />
   </div>
 <div class="col-lg-10">
-  <h2>${movies.title}</h2>
+  <h4>${movies.title}</h4>
   <p>${movies.overview}</p>
 </div>
 <div class="col-lg-1">

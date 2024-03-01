@@ -1,7 +1,8 @@
 #searcher {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   margin-top: 5em;
+  margin-right: 10em;
   font-family: "Noto Sans KR", sans-serif;
 }
 .row {
@@ -22,6 +23,13 @@
 
 #search-input::placeholder {
   font-size: 60%;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #060d17;
+  background-size: contain;
   font-family: "Noto Sans KR", sans-serif;
 }
 
