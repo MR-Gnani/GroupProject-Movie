@@ -25,16 +25,42 @@ let todayMovieData = "";
 const todayMovieDataSize = 5;
 let todayMoviePageNum = 1;
 
+let todayMovieArr = {
+  categoryName: todayMovie,
+  data: todayMovieData,
+  dataSize: 5,
+  pageNum: 0,
+};
+
 let popularMovieData = "";
 const popularMovieDataSize = 4;
 let popularMoviePageNum = 1;
 
+let popularMovieArr = {
+  categoryName: popularMovie,
+  dataSize: 4,
+  pageNum: 0,
+};
+
 let horrorMovieData = "";
 const horrorMovieDataSize = 6;
 let horrorMoviePageNum = 1;
+
+let horrorMovieArr = {
+  categoryName: horrorMovie,
+  dataSize: 6,
+  pageNum: 0,
+};
 let comedyMovieData = "";
 const comedyMovieDataSize = 6;
 let comedyMoviePageNum = 1;
+
+let comedyMovieArr = {
+  categoryName: comedyMovie,
+  data: comedyMovieData,
+  dataSize: 6,
+  pageNum: 0,
+};
 let actionMovieData = ""; // 추가: 액션 카테고리 데이터를 저장할 변수
 const actionMovieDataSize = 6; // 추가: 액션 카테고리 데이터 크기
 let actionMoviePageNum = 1;
@@ -67,6 +93,9 @@ const fetchPopularMovies = async () => {
   );
   console.log("무비필터", movieLateList100Filter);
   const popularMovieRender = (data) => {
+    todayMovieData = data;
+    popularMovieArr.results = data;
+
     let movieDataList = "";
     const randomNumbers = [];
     while (randomNumbers.length < 20) {
@@ -121,6 +150,7 @@ fetchData(top10URL).then((data) => {
 
 fetchData(horrorURL).then((data) => {
   horrorMovieData = data;
+  horrorMovieArr.results = data;
   render(horrorMovie, horrorMovieData, 6);
 });
 
@@ -135,9 +165,14 @@ fetchData(actionURL).then((data) => {
   render(actionMovie, actionMovieData, 6); // 추가: 액션 카테고리 데이터 출력
 });
 
-const render = (element, data, size) => {
+const render = (element, data, size, startRenderNum) => {
   let movieDataList = "";
-  if (element == todayMovie) {
+  let categoryName = element;
+  if (startRenderNum == undefined) {
+    startRenderNum = 1;
+  }
+  console.log("데이터 시작점", startRenderNum);
+  if (categoryName == todayMovie) {
     //top10 무비임
     for (let i = 0; i < size; i++) {
       const imgAddress = data.results[i].poster_path;
@@ -155,8 +190,9 @@ const render = (element, data, size) => {
       </section>
   </div>`;
     }
-  } else if (element == popularMovie) {
+  } else if (categoryName == popularMovie) {
     //이게 오늘의영화
+
     for (let i = 0; i < size; i++) {
       const imgAddress = data.results[i].poster_path;
       const rateScore = data.results[i].vote_average.toFixed(2);
@@ -174,10 +210,11 @@ const render = (element, data, size) => {
     }
   } else {
     for (let i = 0; i < size; i++) {
-      const imgAddress = data.results[i].poster_path;
-      const rateScore = data.results[i].vote_average.toFixed(2);
-      const titleName = data.results[i].title;
-      const idName = data.results[i].id;
+      const imgAddress = data.results[i + startRenderNum].poster_path;
+      const rateScore =
+        data.results[i + startRenderNum].vote_average.toFixed(2);
+      const titleName = data.results[i + startRenderNum].title;
+      const idName = data.results[i + startRenderNum].id;
 
       movieDataList += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
       <img class="bbb" src="${imgUrl}${imgAddress} alt="">
@@ -191,17 +228,26 @@ const render = (element, data, size) => {
   element.innerHTML = movieDataList;
 };
 let nowPage = 0;
-const paginationRender = (category, dataName, pageSize, pageNum, direction) => {
-  categoryPageNum = direction;
-  if (categoryPageNum === right && categoryPageNum < 5) {
-    pageNum++;
-  } else if (categoryPageNum === left && categoryPageNum > 0) {
-    pageNum--;
+const paginationRender = (category, direction) => {
+  console.log("데이터", category);
+  if (direction === "right" && category.pageNum < 3) {
+    category.pageNum++;
+  } else if (direction === "left" && category.pageNum >= 0) {
+    category.pageNum--;
   }
-  if (categoryPageNum == 0) {
-    categoryPageNum = 5;
+  if (category.pageNum < 0) {
+    category.pageNum = 2;
+  } else if (category.pageNum == 3) {
+    category.pageNum = 0;
   }
-  render(category, dataName, pageSize);
+  console.log("눌렀을때 페이지넘버", category.pageNum);
+  let startRenderNum = category.pageNum * category.dataSize;
+  render(
+    category.categoryName,
+    category.results,
+    category.dataSize,
+    startRenderNum
+  );
 };
 
 const onclickMovieDetail = (idName) => {
