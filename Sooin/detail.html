@@ -17,57 +17,85 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="css/detail.css" />
+    <link rel="stylesheet" href="../css/detail.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="container">
-        <a href="/" class="logo">
-          <span> NOONING </span>
-        </a>
-        <nav class="navi">
-          <ul class="navi-list">
-            <li class="navi-item">
-              <a href="/">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </a>
-            </li>
-            <li class="navi-item">
-              <a href="/user/${principal.user.id}">
-                <i class="far fa-user"></i>
-              </a>
-            </li>
-            <li class="navi-item">
-              <a onclick="popup('.modal-info')">
-                <i class="fas fa-cog"></i>
-              </a>
-            </li>
+    <div class="wrap">
+      <header class="header">
+        <section class="in_header">
+          <a href="/" class="logo">
+            <span> NOONING </span>
+          </a>
+          <nav class="navi">
+            <ul class="navi-list">
+              <li class="navi-item">
+                <a href="/">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="navi-item">
+                <a href="/user/${principal.user.id}">
+                  <i class="far fa-user"></i>
+                </a>
+              </li>
+              <li class="navi-item">
+                <a onclick="popup('.modal-info')">
+                  <i class="fas fa-cog"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </section>
+      </header>
+      <div class="detail-container">
+        <section id="detailWrap">
+          <div class="moiveImg">
+            <img
+              src="https://lumiere-a.akamaihd.net/v1/images/sa_pixar_virtualbg_coco_16x9_9ccd7110.jpeg?region=0,0,1920,1080&width=960"
+              alt=""
+            />
+            <div class="background"></div>
+          </div>
+          <div class="imgBottom">
+            <div class="titleWrap">
+              <h1 id="movie-title">영화제목</h1>
+              <p id="movie-year">영어제목,년도</p>
+              <p id="movie-v"><i class="fa-solid fa-star"></i>평점</p>
+              <div class="deepWrap">
+                <div class="deepBtn"><i class="fa-regular fa-heart"></i></div>
+                <p>찜하기</p>
+              </div>
+              <div id="detail-description">
+                <h5>작품정보</h5>
+                <p></p>
+              </div>
+            </div>
+            <div class="posterWrap">
+              <img src="" alt="" />
+            </div>
+          </div>
+        </section>
+      </div>
+      <footer>
+        <div class="in_footer">
+          <ul>
+            <li><a href="#">소개</a></li>
+            <li><a href="#">블로그</a></li>
+            <li><a href="#">채용 정보</a></li>
+            <li><a href="#">도움말</a></li>
+            <li><a href="#">API</a></li>
+            <li><a href="#">개인정보처리방침</a></li>
+            <li><a href="#">약관</a></li>
+            <li><a href="#">인기 계정</a></li>
+            <li><a href="#">해시태그</a></li>
+            <li><a href="#">위치</a></li>
           </ul>
-        </nav>
-      </div>
-    </header>
-    <div class="container">
-      <section id="detailWrap"></section>
-    </div>
-    <footer>
-      <div class="container">
-        <ul>
-          <li><a href="#a">소개</a></li>
-          <li><a href="#a">블로그</a></li>
-          <li><a href="#a">채용 정보</a></li>
-          <li><a href="#a">도움말</a></li>
-          <li><a href="#a">API</a></li>
-          <li><a href="#a">개인정보처리방침</a></li>
-          <li><a href="#a">약관</a></li>
-          <li><a href="#a">인기 계정</a></li>
-          <li><a href="#a">해시태그</a></li>
-          <li><a href="#a">위치</a></li>
-        </ul>
-        <div class="copy">
-          <p>© 2024 Nooning from Coding Noona's JavaScript Study-19teams</p>
+          <div class="copy">
+            <p>© 2024 Nooning from Coding Noona's JavaScript Study-19teams</p>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
