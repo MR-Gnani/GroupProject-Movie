@@ -88,8 +88,9 @@ const fetchPopularMovies = async () => {
       const imgAddress = data[targetNum].poster_path;
       const rateScore = data[targetNum].vote_average.toFixed(2);
       const titleName = data[targetNum].title;
+      const idName = data[targetNum].id;
 
-      movieDataList += ` <div class="popular-movie">
+      movieDataList += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
       <img class="bbb" src="${imgUrl}${imgAddress} alt="">
       <section class="text-contacts">
       <section class="text-title">${titleName}</section>
@@ -142,8 +143,9 @@ const render = (element, data, size) => {
       const imgAddress = data.results[i].poster_path;
       const rateScore = data.results[i].vote_average.toFixed(2);
       const titleName = data.results[i].title;
+      const idName = data.results[i].id;
 
-      movieDataList += ` <div class='top-10-side bbbb'>
+      movieDataList += ` <div class='top-10-side bbbb' onclick="onclickMovieDetail(${idName})">
       <div class="top-10-side-img">${i + 1}</div>
       <img class="bbb bbbb" src="${imgUrl}${imgAddress}" alt="">
       <section class="text-contacts">
@@ -159,8 +161,9 @@ const render = (element, data, size) => {
       const imgAddress = data.results[i].poster_path;
       const rateScore = data.results[i].vote_average.toFixed(2);
       const titleName = data.results[i].title;
+      const idName = data.results[i].id;
 
-      movieDataList += ` <div class="popular-movie">
+      movieDataList += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
       <img class="bbb" src="${imgUrl}${imgAddress} alt="">
       <section class="text-contacts">
       <section class="text-title">${titleName}</section>
@@ -174,8 +177,9 @@ const render = (element, data, size) => {
       const imgAddress = data.results[i].poster_path;
       const rateScore = data.results[i].vote_average.toFixed(2);
       const titleName = data.results[i].title;
+      const idName = data.results[i].id;
 
-      movieDataList += ` <div class="popular-movie">
+      movieDataList += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
       <img class="bbb" src="${imgUrl}${imgAddress} alt="">
       <section class="text-contacts">
       <section class="text-title">${titleName}</section>
@@ -198,4 +202,9 @@ const paginationRender = (category, dataName, pageSize, pageNum, direction) => {
     categoryPageNum = 5;
   }
   render(category, dataName, pageSize);
+};
+
+const onclickMovieDetail = (idName) => {
+  console.log(idName);
+  window.location.href = `detail.html?movieId=${idName}`;
 };
