@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> profile update </title>
+
+    <!-- 폰트 -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    />
+
+    <!-- 스타일 시트 -->
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/update.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+
+</head>
+<body class="basic">
+    <!-- header start -->
+    <header class="header">
+        <div class="container">
+          <a href="/" class="logo">
+            <span> NOONING </span>
+          </a>
+          <nav class="navi">
+            <ul class="navi-list">
+              <li class="navi-item">
+                <a href="/">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="navi-item">
+                <a href="/user/${principal.user.id}">
+                  <i class="far fa-user"></i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </header>
+    <!-- header end -->
+
+    <!-- profile update start -->
+    <main class="header-height">
+        <section class="modify">
+            <h2> 회원정보 수정 </h2>
+            <div class="content-wrap">
+                <!-- 프로필 이미지 -->
+                <div class="imageWrap">
+                    <img src="images/comely.jpg"/>
+                </div>
+                <!-- 정보 수정 란 -->
+                <form>
+                    <div class="data-inputWrap">
+                        <h4>아이디</h4>
+                        <span class=""> Nani </span>
+                    </div>
+                    <div class="data-inputWrap">
+                        <h4>이름</h4>
+                        <span class=""> 김진한 </span>
+                    </div>
+                    <div class="data-inputWrap">
+                        <h4>이메일</h4>
+                        <input class="modify-idInput" placeholder="nooning@nate.com"/>
+                    </div>
+                    <div class="data-inputWrap">
+                        <h4>휴대폰 번호</h4>
+                        <input class="modify-idInput" placeholder="01020240229"/>
+                    </div>
+                </form>
+
+                <!-- 수정 버튼 란 -->
+                <div class="btn-wrap">
+                    <button class="modify-btn">확인</button>
+                    <button class="cancel-btn">취소</button>
+                </div>
+
+            </div>
+         
+        </section>
+      </main>
+    <!-- profile update end -->
+
+
+
+
+
+    <!-- footer start -->
+    <footer>
+        <div class="container">
+          <ul>
+            <li><a href="#a">소개</a></li>
+            <li><a href="#a">블로그</a></li>
+            <li><a href="#a">채용 정보</a></li>
+            <li><a href="#a">도움말</a></li>
+            <li><a href="#a">API</a></li>
+            <li><a href="#a">개인정보처리방침</a></li>
+            <li><a href="#a">약관</a></li>
+            <li><a href="#a">인기 계정</a></li>
+            <li><a href="#a">해시태그</a></li>
+            <li><a href="#a">위치</a></li>
+          </ul>
+          <div class="copy">
+            <p>© 2024 Nooning from Coding Noona's JavaScript Study-19teams</p>
+          </div>
+        </div>
+      </footer>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+      </script>
+</body>
+</html>
