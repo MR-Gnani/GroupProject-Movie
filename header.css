@@ -8,20 +8,24 @@
 }
 
 .header {
-  height: 80px;
-  background-color: #060d17ec;
+  height: 100px;
+  background-color: black;
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 10;
+  left: 0;
+  right: 0;
+  z-index: 100%;
+  padding: 0 30px;
 }
 
-.header .container {
+.header .header_container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0 30px;
   height: 100%;  
 }
 
@@ -31,20 +35,29 @@
   font-size: 50px;
 }
 
-.logo span{
-	color: #e92047;
+.logo:hover {
+  text-decoration: none;
 }
 
-.navi > .navi-list {
-  display: flex;
+.logo span{
+	color: #e92047;
+  text-transform: uppercase;
+  font-weight: bolder;
 }
-.navi > .navi-list .navi-item {
+
+.nav-container > .nav-list {
+  display: flex;
+  margin-top: 10px;
+}
+
+.nav-container > .nav-list .nav-item {
   flex: 1;
   text-align: center;
   margin: 0 15px;
   display: flex;
 }
-.navi > .navi-list .navi-item a i {
+
+.nav-container > .nav-list .nav-item a i {
   font-size: 30px;
   color: white;
   margin-top: 4px;
@@ -62,6 +75,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .modal-info .modal {
   width: 400px;
   background-color: #fff;
@@ -69,6 +83,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .modal-info .modal button {
   border: 0;
   background-color: transparent;
@@ -80,9 +95,26 @@
   border-bottom: 1px solid #dbdbdb;
 }
 
-
 @media screen and (max-width: 935px) {
-  .header .container {
-    width: 100%;
+  .header {
+    height: 80px;
+  }
+
+  .header .header_container {
+    width: 100%;   
+    padding: 0; 
+  }
+  header .header_container .logo span {    
+    font-size:xx-large;
+    font-weight: bolder;
+  }
+
+  .nav-container > .nav-list .nav-item {  
+    margin: 0 7px;    
+  }
+
+  .nav-container > .nav-list .nav-item a i {
+    font-size: large;
+    font-weight: bolder;
   }
 }

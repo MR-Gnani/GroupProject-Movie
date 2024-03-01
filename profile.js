@@ -1,36 +1,14 @@
+const fetchData = (url) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlOGQxOGFkNWQ4YjYzYjNmYjY0NjY2NWNmODc4ZGQ0OSIsInN1YiI6IjY1NGIzYjM2Mjg2NmZhMDBmZTAxNzNkZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.D3qxPqwPR55bduPDEpwBBz27tng-T9UsVkFnrF6v6Ag",
+    },
+  };
 
-let categoryList = document.querySelectorAll("category_list div");
-
-for(let i=1; i<tabs.length; i++) {
-  tabs[i].addEventListener("click", function(e){
-    filter(e);
-  });
+  return fetch(url, options)
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
 };
-
-function filter(e) {
-  let mode = e.target.id;
-  let resultHTML = " ";
-
-  if (mode === "select_list") {
-    resultHTML = `<div class="su_container">
-    <div class="select_img row">
-      <div class="col">
-        <img src="./images/img1.jpg" alt="">
-      </div>
-      <div class="col">
-        <img src="./images/img2.jpg" alt="">
-      </div>
-      <div class="col">
-        <img src="./images/img3.jpg" alt="">
-      </div>
-      <div class="col">
-        <img src="./images/img4.jpg" alt="">
-      </div>
-    </div>
-  </div>`   
-  } else if (mode === "buy_list"){
-
-    } else if (mode === "qs_list") {
-  
-    } 
-} 
