@@ -64,7 +64,7 @@ body svg {
   display: flex;
   justify-content: space-between;
 
-  height: 270px;
+  height: 250px;
 }
 
 .category-movie div {
@@ -262,4 +262,19 @@ body svg {
   width: 15.5%;
 
   margin-bottom: 3%;
+}
+
+.book-marked-view {
+  display: flex;
+
+  height: 250px;
+  margin-bottom: 3%;
+  justify-content: space-between;
+}
+
+.book-marked-view div {
+  display: flex;
+
+  height: 100%;
+  width: 15.5%;
 }

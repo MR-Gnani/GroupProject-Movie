@@ -162,7 +162,6 @@ fetchPopularMovies();
 
 // fetchData(popularURL).then((data) => {
 //   popularMovieData = data;
-//   console.log(data);
 //   render(popularMovie, popularMovieData, 4);
 // });
 fetchData(top10URL).then((data) => {
@@ -298,8 +297,6 @@ const movieCategoryCodes = {
 };
 
 const paginationRender = (category, direction) => {
-  console.log("페이지정보", category);
-  console.log("페이지넘버", category.pageNum);
   if (direction === "right" && category.pageNum < 3) {
     category.pageNum++;
   } else if (direction === "left" && category.pageNum >= 0) {
@@ -315,7 +312,7 @@ const paginationRender = (category, direction) => {
   }
 
   let startRenderNum = category.pageNum * category.dataSize;
-  console.log("스타트넘버", startRenderNum);
+
   render(
     category.categoryName,
     category.results,
@@ -331,12 +328,11 @@ const onclickMovieDetail = (idName) => {
 let categoryCodeArrNum = 0;
 
 const categoryChangeRender = (titleClass, titleView) => {
-  let changeTitle = document.querySelector(`.${titleClass}`);
   let changeView = document.querySelector(`.${titleView}`);
   changeMovieArr.categoryName = changeView;
-  console.log("카테고리 객체넘버", categoryCodeArrNum);
+
   categoryCodeArrNum++;
-  console.log(Object.keys(movieCategoryCodes).length);
+
   if (categoryCodeArrNum == Object.keys(movieCategoryCodes).length) {
     categoryCodeArrNum = 0;
   }
@@ -367,7 +363,7 @@ const categoryChangeRender = (titleClass, titleView) => {
     const categoryTitleChangeRender = () => {
       changeCodeNam = Object.keys(movieCategoryCodes)[categoryCodeArrNum];
       let changeTitle = document.querySelector(".category-change-title");
-      console.log(changeTitle);
+
       changeTitle.textContent = `# ${changeCodeNam}`;
 
       // changeTitle.innerHTML = `<div class=" category-change" onclick="categoryChangeRender('category-change')">
@@ -382,6 +378,7 @@ const categoryChangeRender = (titleClass, titleView) => {
     // categoryChangeRender();
   });
 };
+categoryChangeRender("category-change", "category-movie");
 
 let scrollEndArr = {
   categoryName: scrollEnd,
@@ -402,6 +399,7 @@ window.addEventListener("scroll", function () {
 
   if (scrollPosition + windowHeight >= documentHeight) {
     fetchData(scrollEndURL).then((data) => {
+      console.log(data);
       scrollEndArr.results = data;
       scrollEndArr.pageNum++;
       scrollEndURL = `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=${
@@ -445,3 +443,53 @@ const getKeyByCategoryCodes = (movieCategoryCodes, contactsCategory) => {
   }
   return matchedKeys;
 };
+
+let dummyList = [1096197, 792307, 969492, 693134, 1072790, 940551];
+
+let idData = {};
+
+const Bookmark = async () => {
+  i = 0;
+  let HTMLdata = "";
+  let bookMarkView = document.querySelector(".book-marked-view");
+  for (id of dummyList) {
+    let idURL = `https://api.themoviedb.org/3/movie/${id}?language=ko-KR`;
+    await fetchData(idURL).then((data) => {
+      idData[id] = data;
+      i++;
+    });
+  }
+
+  let ObjectValues = Object.values(idData);
+  console.log(ObjectValues);
+  for (j = 0; j < ObjectValues.length; j++) {
+    let imgUrl = "https://image.tmdb.org/t/p/w200";
+    let imgAddress = ObjectValues[j].poster_path;
+    let imgAddressResults = `${imgUrl}${imgAddress}`;
+    const rateScore = ObjectValues[j].vote_average.toFixed(2);
+    const titleName = ObjectValues[j].title;
+    const idName = ObjectValues[j].id;
+    const genresArr = ObjectValues[j].genres;
+    const contactsCategory = genresArr.map((genre) => genre.id);
+    console.log(contactsCategory);
+
+    getKeyByCategoryCodes(movieCategoryCodes, contactsCategory);
+    let matchedKeys = getKeyByCategoryCodes(
+      movieCategoryCodes,
+      contactsCategory
+    );
+
+    HTMLdata += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
+      <img class="bbb" src="${imgAddressResults} alt="">
+      <section class="text-contacts">
+      
+      <section class="text-title">${titleName}</section>
+      <section class='text-rate'>${rateScore}</section>
+      <section class='contains-category'>${matchedKeys}</section>
+      </section>
+    </div>`;
+  }
+  bookMarkView.innerHTML = HTMLdata;
+  console.log(HTMLdata);
+};
+Bookmark();
