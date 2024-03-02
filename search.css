@@ -32,11 +32,33 @@
   font-family: "Noto Sans KR", sans-serif;
 }
 
+#simple-intro {
+  margin-top: 3em;
+  font-size: 3px;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
 body {
   margin: 0;
   background-color: #060d17;
   background-size: contain;
   font-family: "Noto Sans KR", sans-serif;
+}
+
+.pagination {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+.page-item.active .page-link {
+  background-color: gray;
+  color: lightgray;
+  border-color: gray;
+}
+
+.page-link {
+  color: #060d17;
 }
 
 /* .row .col-lg-8 {

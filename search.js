@@ -1,10 +1,10 @@
 let searchedMoviesList = [];
 const API_KEY = "e8d18ad5d8b63b3fb646665cf878dd49";
 let userInput = document.querySelector(".task-input");
-// let total_results = 0;
-// let page = 1;
-// const pageSize = 10;
-// const groupSize = 5;
+let total_results = 0;
+let page = 1;
+const pageSize = 20;
+const groupSize = 10;
 
 const getMovieData = async () => {
   const options = {
@@ -40,8 +40,8 @@ const getMoviesByKeyword = async () => {
   const url = new URL(
     `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${keyword}&api_key=${API_KEY}`
   );
-  // url.searchParams.set("page", page);
-  // url.searchParams.set("pageSize", pageSize);
+  url.searchParams.set("page", page);
+  url.searchParams.set("pageSize", pageSize);
   const response = await fetch(url);
 
   const data = await response.json();
@@ -49,7 +49,7 @@ const getMoviesByKeyword = async () => {
   searchedMoviesList = data.results;
   total_results = data.total_results;
   render2();
-  // paginationRender();
+  paginationRender();
 };
 
 const render2 = () => {
@@ -119,25 +119,39 @@ const render = () => {
   document.getElementById("searched-list").innerHTML = movieHTML.join("");
 };
 
-// const paginationRender = () => {
-//   const totalPages = Math.ceil(total_results / pageSize);
-//   const pageGroup = Math.ceil(page / groupSize);
-//   const lastPage = pageGroup * groupSize;
-//   if (lastPage > totalPages) {
-//     lastPage = totalPages;
-//   }
-//   const firstPage =
-//     lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
-//   let paginationHTML = "";
-//   for (let i = firstPage; i <= lastPage; i++) {
-//     paginationHTML += `<li class="page-item" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
-//   }
-//   document.querySelector(".pagination").innerHTML = paginationHTML;
-// };
+const paginationRender = () => {
+  let total_pages = Math.ceil(total_results / pageSize);
+  let pageGroup = Math.ceil(page / groupSize);
+  let lastPage = pageGroup * groupSize;
+  if (lastPage > total_pages) {
+    lastPage = total_pages;
+  }
+  const firstPage =
+    lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+  let paginationHTML = `<li class="page-item" onclick="moveToPage(1)">
+  <a class="page-link" href='#js-bottom'>&lt;&lt;</a>
+</li>
+<li class="page-item" onclick="moveToPage(${page - 1})">
+  <a class="page-link" href='#js-bottom'>&lt;</a>
+</li>`;
 
-// const moveToPage = (pageNum) => {
-//   console.log("moveToPage", pageNum);
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML += `<li class="page-item ${i == page ? "active" : ""}" >
+    <a class="page-link" href='#js-bottom' id='page-${i}' onclick="moveToPage(${i})" >${i}</a>
+   </li>`;
+  }
+  paginationHTML += `<li class="page-item" onclick="moveToPage(${page + 1})">
+  <a  class="page-link" href='#js-program-detail-bottom'>&gt;</a>
+ </li>
+ <li class="page-item" onclick="moveToPage(${total_pages})">
+  <a class="page-link" href='#js-bottom'>&gt;&gt;</a>
+ </li>`;
+  document.querySelector(".pagination").innerHTML = paginationHTML;
+};
 
-//   page = pageNum;
-//   getMoviesByKeyword();
-// };
+const moveToPage = (pageNum) => {
+  console.log("moveToPage", pageNum);
+
+  page = pageNum;
+  getMoviesByKeyword();
+};
