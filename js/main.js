@@ -154,7 +154,6 @@ const fetchPopularMovies = async () => {
     }
 
     popularMovie.innerHTML = movieDataList;
-    console.log(popularMovie);
   };
   popularMovieRender(movieLateList100Filter);
 };
@@ -169,14 +168,14 @@ fetchPopularMovies();
 fetchData(top10URL).then((data) => {
   todayMovieData = data;
   todayMovieArr.results = data;
-  console.log("탑텐", data);
+
   render(todayMovie, todayMovieData, 5, 0);
 });
 
 fetchData(horrorURL).then((data) => {
   horrorMovieData = data;
   horrorMovieArr.results = data;
-  console.log("호러", horrorMovieArr.results);
+
   render(horrorMovie, horrorMovieData, 6);
 });
 
@@ -185,11 +184,11 @@ fetchData(comedyURL).then((data) => {
   render(comedyMovie, comedyMovieData, 6);
 });
 
-fetchData(actionURL).then((data) => {
-  // 추가: 액션 카테고리 데이터 가져오기
-  actionMovieData = data;
-  render(actionMovie, actionMovieData, 6); // 추가: 액션 카테고리 데이터 출력
-});
+// fetchData(actionURL).then((data) => {
+//   // 추가: 액션 카테고리 데이터 가져오기
+//   actionMovieData = data;
+//   render(actionMovie, actionMovieData, 6); // 추가: 액션 카테고리 데이터 출력
+// });
 
 fetchData(latestURL).then((data) => {
   latestMovieArr.data = data;
@@ -200,7 +199,6 @@ fetchData(latestURL).then((data) => {
 const render = (element, data, size, startRenderNum) => {
   let movieDataList = "";
   let categoryName = element;
-  console.log("랜더", data);
 
   if (startRenderNum == undefined) {
     startRenderNum = 1;
@@ -277,8 +275,6 @@ const render = (element, data, size, startRenderNum) => {
     }
   }
   categoryName.innerHTML = movieDataList;
-  console.log(categoryName);
-  console.log(movieDataList);
 };
 let nowPage = 0;
 
@@ -333,13 +329,15 @@ const onclickMovieDetail = (idName) => {
 };
 
 let categoryCodeArrNum = 0;
+
 const categoryChangeRender = (titleClass, titleView) => {
-  changeTitle = document.querySelector(`.${titleClass}`);
+  let changeTitle = document.querySelector(`.${titleClass}`);
   let changeView = document.querySelector(`.${titleView}`);
   changeMovieArr.categoryName = changeView;
-
+  console.log("카테고리 객체넘버", categoryCodeArrNum);
   categoryCodeArrNum++;
-  if (categoryCodeArrNum > movieCategoryCodes.length) {
+  console.log(Object.keys(movieCategoryCodes).length);
+  if (categoryCodeArrNum == Object.keys(movieCategoryCodes).length) {
     categoryCodeArrNum = 0;
   }
 
@@ -365,20 +363,25 @@ const categoryChangeRender = (titleClass, titleView) => {
     changeMovieArr.results = data;
 
     render(changeView, categoryChangeData, 6);
-    const categoryChangeRender = () => {
-      changeTitle.innerHTML = `<div class=" category-change" onclick="categoryChangeRender('category-change')">
-      <div class="category-change-title" style="font-size: 1em"># ${
-        Object.keys(movieCategoryCodes)[categoryCodeArrNum]
-      }</div>
-      <div><svg class="category-change-arrow" xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
-        <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
-      </svg></div>`;
+
+    const categoryTitleChangeRender = () => {
+      changeCodeNam = Object.keys(movieCategoryCodes)[categoryCodeArrNum];
+      let changeTitle = document.querySelector(".category-change-title");
+      console.log(changeTitle);
+      changeTitle.textContent = `# ${changeCodeNam}`;
+
+      // changeTitle.innerHTML = `<div class=" category-change" onclick="categoryChangeRender('category-change')">
+      // <div class="category-change-title" style="font-size: 1em"># ${
+      //   Object.keys(movieCategoryCodes)[categoryCodeArrNum]
+      // }</div>
+      // <div><svg class="category-change-arrow" xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+      //   <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
+      // </svg></div>`;
     };
-    categoryChangeRender();
+    categoryTitleChangeRender();
+    // categoryChangeRender();
   });
 };
-
-categoryChangeRender("category-change", "category-movie");
 
 let scrollEndArr = {
   categoryName: scrollEnd,
@@ -404,9 +407,7 @@ window.addEventListener("scroll", function () {
       scrollEndURL = `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=${
         1 + scrollEndArr.pageNum
       }`;
-      console.log("스크롤 렌더", scrollEndArr.results);
     });
-    console.log(scrollEnd);
 
     let HTMLdata = "";
     for (let i = 0; i < 18; i++) {
