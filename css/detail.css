@@ -159,6 +159,13 @@ img {
 .posterWrap {
   height: 60vh;
   margin-right: 2em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  /* width: 100%; */
+  min-height: calc(150px * 1.5);
+  /* height: calc(150px * 1.5); */
+  /* background: #dbdbdb; */
+  overflow: hidden;
 }
 
 @media screen and (max-width: 1140px) {
@@ -275,7 +282,7 @@ img {
 
   #detail-description > p {
     /* width: 60%; */
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.4em;
     letter-spacing: -0.04em;
   }
@@ -291,15 +298,14 @@ img {
     padding-bottom: 0;
     /* max-height: 20vh; */
     position: relative;
-    top: -3em;
+    top: -5em;
   }
   .titleWrap {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    width: 20%;
     align-items: baseline;
-    padding-top: 6em;
+    padding-top: 8em;
   }
 
   /* 줄거리 문단 */
@@ -309,21 +315,21 @@ img {
   /* 영화 포스터 */
   .posterWrap {
     height: 21vh;
+    padding-bottom: 1em;
   }
 }
 @media screen and (max-width: 400px) {
   .imgBottom {
     padding-bottom: 0;
     /* max-height: 20vh; */
-    position: relative;
+    /* position: relative; */
   }
   .titleWrap {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    width: 20%;
+    width: 50%;
     align-items: baseline;
-    padding-top: 5em;
   }
 
   /* 줄거리 wrap */
@@ -333,8 +339,8 @@ img {
 
   /* 영화 포스터 */
   .posterWrap {
-    height: 30vh;
-    max-height: 180px;
+    /* height: 30vh; */
+    max-width: 40vw;
   }
 }
 @media screen and (max-width: 290px) {
@@ -342,20 +348,18 @@ img {
     padding-bottom: 0;
     /* max-height: 20vh; */
     position: relative;
+    top: -3em;
   }
   .titleWrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    width: 30%;
-    align-items: baseline;
-    padding-top: 4em;
+    padding-top: 8em;
+    width: 42%;
   }
 
   /* 영화 포스터 */
   .posterWrap {
     /* width: 20%; */
     margin-right: 0;
-    max-height: 165px;
+    /* max-height: 165px; */
+    max-width: 51vw;
   }
 }
