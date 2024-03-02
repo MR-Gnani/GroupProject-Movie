@@ -2,48 +2,36 @@ const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("movieId");
 let movies = [];
 let baseUrl = new URL(`https://api.themoviedb.org/3/movie`);
+let movieList = [];
 
-(() => {
-  const wrapEl = document.querySelector(".wrap");
-  const FULL_HEART = '<i class="fa-solid fa-heart full_heart"></i>';
-  const EMPTY_HEART = '<i class="fa-regular fa-heart empty_heart"></i>';
-  const heartHandler = (e) => {
-    // console.log(e.target.parentNode);//부모로 접근하여 하트를 클릭 / 내용은 innerHTML로 넣기
-    const heartEl = e.target.parentNode;
+const wrapEl = document.querySelector(".wrap");
+const FULL_HEART = '<i class="fa-solid fa-heart full_heart"></i>';
+const EMPTY_HEART = '<i class="fa-regular fa-heart empty_heart"></i>';
+const heartHandler = (e) => {
+  // console.log(e.target.parentNode);//부모로 접근하여 하트를 클릭 / 내용은 innerHTML로 넣기
+  const heartEl = e.target.parentNode;
+  const deepHeart = e.target.classList.contains("fa-regular");
+  const notHeart = e.target.classList.contains("fa-solid");
 
-    if (e.target.classList.contains("fa-regular")) {
-      heartEl.innerHTML = FULL_HEART;
-    } else if (e.target.classList.contains("fa-solid")) {
-      heartEl.innerHTML = EMPTY_HEART;
+  if (deepHeart) {
+    heartEl.innerHTML = FULL_HEART;
+    movieList.push(movieId);
+
+    console.log(movieList);
+  } else if (notHeart) {
+    heartEl.innerHTML = EMPTY_HEART;
+    for (let i = 0; i < movieList.length; i++) {
+      if (movieList[i] === movieId) {
+        movieList.splice(i, 1);
+        i--;
+      }
     }
-  };
-  wrapEl.addEventListener("click", heartHandler);
-})();
+  }
+};
+wrapEl.addEventListener("click", heartHandler);
 
 const detailRender = async (movieId) => {
-  // console.log(movieId);
-  // window.location.href = "detail.html?id=" + movieId;
-
   try {
-    // const htmloptions = {
-    //   method: "GET",
-    //   header: {
-    //     accept: "text/html",
-    //   },
-    // };
-    // const html = "detail.html";
-    // const htmlResponse = await fetch(html, htmloptions);
-    // const htmlText = await htmlResponse.text();
-
-    // const parser = new DOMParser();
-    // const detailDoc = parser.parseFromString(htmlText, "text/html");
-
-    // const detailWrap = detailDoc.getElementById("detailWrap");
-    // if (!detailWrap) {
-    //   console.error("찾을 수 없습니다.");
-    //   return;
-    // }
-
     const options = {
       method: "GET",
       headers: {
@@ -82,15 +70,16 @@ const detailRender = async (movieId) => {
                 </div>
               </div>
               <div class="posterWrap">
-              <img src="https://image.tmdb.org/t/p/w300${
+              <img src="https://image.tmdb.org/t/p/w500${
                 movies.poster_path
               }" alt="">
             </div>
             </div>
           </div>
-    
           </div>`;
+    console.log(detailWrap);
     detailWrap.innerHTML = detailHTML;
+    console.log(detailWrap);
   } catch (error) {
     console.log(error);
   }
