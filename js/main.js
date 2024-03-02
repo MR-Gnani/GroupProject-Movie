@@ -493,3 +493,42 @@ const Bookmark = async () => {
   console.log(HTMLdata);
 };
 Bookmark();
+
+const scrollPageFirst = () => {
+  fetchData(scrollEndURL).then((data) => {
+    console.log(data);
+    scrollEndArr.results = data;
+    scrollEndArr.pageNum++;
+    scrollEndURL = `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=${
+      1 + scrollEndArr.pageNum
+    }`;
+  });
+
+  let HTMLdata = "";
+  for (let i = 0; i < 18; i++) {
+    const imgAddress = scrollEndArr.results.results[i].poster_path;
+    const rateScore = scrollEndArr.results.results[i].vote_average.toFixed(2);
+    const titleName = scrollEndArr.results.results[i].title;
+    const idName = scrollEndArr.results.results[i].id;
+    const contactsCategory = scrollEndArr.results.results[i].genre_ids;
+
+    getKeyByCategoryCodes(movieCategoryCodes, contactsCategory);
+    let matchedKeys = getKeyByCategoryCodes(
+      movieCategoryCodes,
+      contactsCategory
+    );
+
+    HTMLdata += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
+    <img class="bbb" src="${imgUrl}${imgAddress} alt="">
+    <section class="text-contacts">
+    
+    <section class="text-title">${titleName}</section>
+    <section class='text-rate'>${rateScore}</section>
+    <section class='contains-category'>${matchedKeys}</section>
+    </section>
+  </div>`;
+  }
+  scrollEnd.innerHTML += HTMLdata;
+};
+
+scrollPageFirst();
