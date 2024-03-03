@@ -139,12 +139,6 @@ body svg {
   }
 }
 
-@media screen and (max-width: 990px) {
-  .bbb {
-    width: 102px;
-  }
-}
-
 .top-10-side {
   background-color: black;
   display: flex;
