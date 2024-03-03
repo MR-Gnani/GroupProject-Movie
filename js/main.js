@@ -22,6 +22,7 @@ let comedyMovie = document.querySelector(".comedy-movie-view");
 let actionMovie = document.querySelector(".action-movie-view"); // 추가: 액션 카테고리를 표시할 요소 선택
 let latestMovie = document.querySelector(".latest-movie-view");
 let scrollEnd = document.querySelector(".scroll-end");
+let likeMovie = document.querySelector(".book-marked-view");
 
 let todayMovieData = "";
 const todayMovieDataSize = 5;
@@ -39,7 +40,7 @@ const popularMovieDataSize = 4;
 let popularMoviePageNum = 1;
 
 let popularMovieArr = {
-  categoryName: popularMovie,
+  categoryName: document.querySelector(".book-marked-view"),
   dataSize: 4,
   pageNum: 0,
 };
@@ -76,6 +77,15 @@ let latestMovieArr = {
   changeTitle: "",
   dataSize: 6,
   pageNum: 0,
+};
+
+let likeMovieArr = {
+  categoryName: likeMovie,
+  changeTitle: "",
+  results: [],
+  dataSize: 6,
+  pageNum: 0,
+  startRenderNum: 0,
 };
 
 let actionMovieData = ""; // 추가: 액션 카테고리 데이터를 저장할 변수
@@ -200,7 +210,7 @@ const render = (element, data, size, startRenderNum) => {
   let categoryName = element;
 
   if (startRenderNum == undefined) {
-    startRenderNum = 1;
+    startRenderNum = 0;
   }
 
   if (categoryName == todayMovie) {
@@ -249,30 +259,59 @@ const render = (element, data, size, startRenderNum) => {
     </div>`;
     }
   } else {
-    for (let i = 0; i < size; i++) {
-      const imgAddress = data.results[i + startRenderNum].poster_path;
-      const rateScore =
-        data.results[i + startRenderNum].vote_average.toFixed(2);
-      const titleName = data.results[i + startRenderNum].title;
-      const idName = data.results[i + startRenderNum].id;
-      const contactsCategory = data.results[i + startRenderNum].genre_ids;
+    if (element == likeMovie) {
+      for (let i = 0; i < size; i++) {
+        if (data[i + startRenderNum] == undefined) {
+          return;
+        }
+        const imgAddress = data[i + startRenderNum].poster_path;
+        const rateScore = data[i + startRenderNum].vote_average.toFixed(2);
+        const titleName = data[i + startRenderNum].title;
+        const idName = data[i + startRenderNum].id;
+        const contactsCategory = data[i + startRenderNum].genres;
 
-      getKeyByCategoryCodes(movieCategoryCodes, contactsCategory);
-      let matchedKeys = getKeyByCategoryCodes(
-        movieCategoryCodes,
-        contactsCategory
-      );
+        getKeyByCategoryCodes(movieCategoryCodes, contactsCategory);
+        let matchedKeys = getKeyByCategoryCodes(
+          movieCategoryCodes,
+          contactsCategory
+        );
 
-      movieDataList += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
-      <img class="bbb" src="${imgUrl}${imgAddress} alt="">
-      <section class="text-contacts">
-      <section class="text-title">${titleName}</section>
-      <section class='text-rate'>${rateScore}</section>
-      <section class='contains-category'>${matchedKeys}</section>
-      </section>
-    </div>`;
+        movieDataList += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
+        <img class="bbb" src="${imgUrl}${imgAddress} alt="">
+        <section class="text-contacts">
+        <section class="text-title">${titleName}</section>
+        <section class='text-rate'>${rateScore}</section>
+        <section class='contains-category'>${matchedKeys}</section>
+        </section>
+      </div>`;
+      }
+    } else {
+      for (let i = 0; i < size; i++) {
+        const imgAddress = data.results[i + startRenderNum].poster_path;
+        const rateScore =
+          data.results[i + startRenderNum].vote_average.toFixed(2);
+        const titleName = data.results[i + startRenderNum].title;
+        const idName = data.results[i + startRenderNum].id;
+        const contactsCategory = data.results[i + startRenderNum].genre_ids;
+
+        getKeyByCategoryCodes(movieCategoryCodes, contactsCategory);
+        let matchedKeys = getKeyByCategoryCodes(
+          movieCategoryCodes,
+          contactsCategory
+        );
+
+        movieDataList += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
+        <img class="bbb" src="${imgUrl}${imgAddress} alt="">
+        <section class="text-contacts">
+        <section class="text-title">${titleName}</section>
+        <section class='text-rate'>${rateScore}</section>
+        <section class='contains-category'>${matchedKeys}</section>
+        </section>
+      </div>`;
+      }
     }
   }
+
   categoryName.innerHTML = movieDataList;
 };
 let nowPage = 0;
@@ -312,13 +351,13 @@ const paginationRender = (category, direction) => {
   }
 
   let startRenderNum = category.pageNum * category.dataSize;
-
   render(
     category.categoryName,
     category.results,
     category.dataSize,
     startRenderNum
   );
+  console.log(likeMovieArr.pageNum);
 };
 
 const onclickMovieDetail = (idName) => {
@@ -399,7 +438,6 @@ window.addEventListener("scroll", function () {
 
   if (scrollPosition + windowHeight >= documentHeight) {
     fetchData(scrollEndURL).then((data) => {
-      console.log(data);
       scrollEndArr.results = data;
       scrollEndArr.pageNum++;
       scrollEndURL = `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=${
@@ -444,59 +482,8 @@ const getKeyByCategoryCodes = (movieCategoryCodes, contactsCategory) => {
   return matchedKeys;
 };
 
-let dummyList = [1096197, 792307, 969492, 693134, 1072790, 940551];
-
-let idData = {};
-
-const Bookmark = async () => {
-  i = 0;
-  let HTMLdata = "";
-  let bookMarkView = document.querySelector(".book-marked-view");
-  for (id of dummyList) {
-    let idURL = `https://api.themoviedb.org/3/movie/${id}?language=ko-KR`;
-    await fetchData(idURL).then((data) => {
-      idData[id] = data;
-      i++;
-    });
-  }
-
-  let ObjectValues = Object.values(idData);
-  console.log(ObjectValues);
-  for (j = 0; j < ObjectValues.length; j++) {
-    let imgUrl = "https://image.tmdb.org/t/p/w200";
-    let imgAddress = ObjectValues[j].poster_path;
-    let imgAddressResults = `${imgUrl}${imgAddress}`;
-    const rateScore = ObjectValues[j].vote_average.toFixed(2);
-    const titleName = ObjectValues[j].title;
-    const idName = ObjectValues[j].id;
-    const genresArr = ObjectValues[j].genres;
-    const contactsCategory = genresArr.map((genre) => genre.id);
-    console.log(contactsCategory);
-
-    getKeyByCategoryCodes(movieCategoryCodes, contactsCategory);
-    let matchedKeys = getKeyByCategoryCodes(
-      movieCategoryCodes,
-      contactsCategory
-    );
-
-    HTMLdata += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
-      <img class="bbb" src="${imgAddressResults} alt="">
-      <section class="text-contacts">
-      
-      <section class="text-title">${titleName}</section>
-      <section class='text-rate'>${rateScore}</section>
-      <section class='contains-category'>${matchedKeys}</section>
-      </section>
-    </div>`;
-  }
-  bookMarkView.innerHTML = HTMLdata;
-  console.log(HTMLdata);
-};
-Bookmark();
-
 const scrollPageFirst = () => {
   fetchData(scrollEndURL).then((data) => {
-    console.log(data);
     scrollEndArr.results = data;
     scrollEndArr.pageNum++;
     scrollEndURL = `https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=${
@@ -530,5 +517,81 @@ const scrollPageFirst = () => {
   }
   scrollEnd.innerHTML += HTMLdata;
 };
+
+let dummyList = [
+  1096197, 693134, 438631, 940551, 949429, 609681, 885303, 1022796, 572802,
+  1096197, 1072790, 1096197, 1096197, 1072790, 792307, 1096197, 693134, 438631,
+  940551,
+];
+let movieLikeList = [];
+let movieLikeListStartNum = 0;
+
+const LikeMovieFetch = async (id) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlOGQxOGFkNWQ4YjYzYjNmYjY0NjY2NWNmODc4ZGQ0OSIsInN1YiI6IjY1NGIzYjM2Mjg2NmZhMDBmZTAxNzNkZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.D3qxPqwPR55bduPDEpwBBz27tng-T9UsVkFnrF6v6Ag",
+    },
+  };
+  let url = `https://api.themoviedb.org/3/movie/${id}?language=ko-KR`;
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//아이디 배열을 가져와서 데이터를 뽑은후 리턴해주는 함수
+
+const LikeMovieFetchArr = async () => {
+  for (i = 0; i < dummyList.length; i++) {
+    movieLikeList.push(await LikeMovieFetch(dummyList[i]));
+  }
+};
+// 리턴된 데이터를 넣어주는 함수
+
+const likeMovieRender = (movieLikeList) => {
+  let movieDataList = "";
+  let startRenderNum = 0;
+  likeMovieArr.results = movieLikeList;
+
+  for (let i = 0; i < 6; i++) {
+    if (movieLikeList[i + startRenderNum] === undefined) {
+      ("");
+    } else {
+      const imgAddress = movieLikeList[i + startRenderNum].poster_path;
+      const rateScore =
+        movieLikeList[i + startRenderNum].vote_average.toFixed(2);
+      const titleName = movieLikeList[i + startRenderNum].title;
+      const idName = movieLikeList[i + startRenderNum].id;
+      const contactsCategory = movieLikeList[i + startRenderNum].genres;
+
+      getKeyByCategoryCodes(movieCategoryCodes, contactsCategory);
+      let matchedKeys = getKeyByCategoryCodes(
+        movieCategoryCodes,
+        contactsCategory
+      );
+
+      movieDataList += ` <div class="popular-movie" onclick="onclickMovieDetail(${idName})">
+      <img class="bbb" src="${imgUrl}${imgAddress} alt="">
+      <section class="text-contacts">
+      <section class="text-title">${titleName}</section>
+      <section class='text-rate'>${rateScore}</section>
+      <section class='contains-category'>${matchedKeys}</section>
+      </section>
+    </div>`;
+    }
+  }
+  likeMovie.innerHTML = movieDataList;
+};
+(async () => {
+  await LikeMovieFetchArr();
+  await likeMovieRender(movieLikeList);
+})();
+//비동기 함수 호출
 
 scrollPageFirst();

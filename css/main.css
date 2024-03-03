@@ -269,12 +269,12 @@ body svg {
 
   height: 250px;
   margin-bottom: 3%;
-  justify-content: space-between;
+  justify-content: baseline;
 }
 
 .book-marked-view div {
   display: flex;
-
+  margin-right: 1.4%;
   height: 100%;
   width: 15.5%;
 }
